@@ -30,11 +30,15 @@ def tabulate(contents, rows=6, columns=5):
             yield table
             row = []
             table = []
+
+        row.append(c)
+
         if len(row) == columns:
             table.append(row)
             row = []
 
-        row.append(c)
+    if row:
+        table.append(row)
 
     if table:
         yield table
