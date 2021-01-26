@@ -3,8 +3,12 @@
 Inject words and images where possible.
 """
 
+import json
 import os
 import sys
+
+if not os.path.isdir('img'):
+    os.mkdir('img')
 
 
 def read_input():
@@ -46,6 +50,13 @@ def find_image(word, subdir='img'):
     return os.path.join(subdir, 'placeholder.png')
 
 
+if os.path.isfile('img/style.json'):
+    with open('img/style.json') as fin:
+        image_style = json.load(fin)
+else:
+    image_style = {}
+
+
 def print_table(table):
     indent = 4
     print(' ' * indent + '<table>')
@@ -62,7 +73,7 @@ def print_table(table):
                 print(' ' * indent + '<span class="text bottom-left word">%s</span>' % word)
             imgpath = find_image(word)
             if imgpath:
-                print(' ' * indent + '<img src="%s">' % imgpath)
+                print(' ' * indent + '<img src="%s" style="%s">' % (imgpath, image_style.get(word)))
             indent -= 2
             print(' ' * indent + '</div>')
             print(' ' * indent + '</td>')
@@ -78,7 +89,8 @@ print("""
     <style>
       table td { border: 1px solid #333; }
       td { width: 145px; height: 145px; }
-      img { width: 100%; height: 100%; }
+      img { max-width: 145px; max-height: 145px; width: 100%; height: auto; z-index: -1; }
+      .text { z-index: 1; }
 
       .container { position: relative; text-align: center; height: 100%; }
 
