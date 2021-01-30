@@ -6,6 +6,7 @@ Inject words and images where possible.
 import json
 import os
 import sys
+import unicodedata
 
 if not os.path.isdir('img'):
     os.mkdir('img')
@@ -45,8 +46,10 @@ def tabulate(contents, rows=6, columns=5):
 
 
 def find_image(word, subdir='img'):
+    word = unicodedata.normalize('NFC', word)
     if word:
         for filename in os.listdir(subdir):
+            filename = unicodedata.normalize('NFC', filename)
             name, ext = os.path.splitext(filename)
             if name == word:
                 return os.path.join(subdir, filename)
