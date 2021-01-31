@@ -56,6 +56,24 @@ Feed it your list of words, and it will hit [DuckDuckGo](https://duckduckgo.com)
 Pick the result you like, and save it to the img subdirectory.
 If you have [pyperclip](https://pypi.org/project/pyperclip/) installed, the script will copy the filename (minus the extension) to the buffer for you, so you can paste it when needed.
 
+You'll find that sometimes the images will need some tweaking, e.g. scaling or translation.
+You can do that by putting an img/style.json with the following contents:
+
+```json
+{
+    "бита": "transform: rotate(25deg) scale(0.9)",
+    "бэби": "transform: scale(0.85)",
+    "выдра": "transform: scaleX(-1)",
+    "горка": "transform: scaleX(-1)",
+    "даша": "transform: translate(15px)"
+}
+```
+
+It's a dictionary keyed by the name of the image file (minus the extension).
+The values are the CSS styles to apply to the image.
+The most useful is the [transform](https://www.w3schools.com/cssref/css3_pr_transform.asp).
+Of course, you can also tweak the generated HTML directly, but those changes won't persist when you regenerate the HTML. 
+
 ## How does it work?
 
 The tables are regular [HTML](https://en.wikipedia.org/wiki/HTML).
