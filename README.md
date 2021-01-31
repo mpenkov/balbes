@@ -58,8 +58,14 @@ If you have [pyperclip](https://pypi.org/project/pyperclip/) installed, the scri
 
 ## How does it work?
 
-Python + HTML + CSS
+The tables are regular [HTML](https://en.wikipedia.org/wiki/HTML).
+[CSS](https://en.wikipedia.org/wiki/CSS) handles the appearance, so things like overlaying the text over the images, text outlines, etc.
+Finally, [Python](https://www.python.org) ties everything together.
+
+I was originally going to use something like [PIL](https://pypi.org/project/PIL/) to tweak the images prior to putting them on the page.
+Surprisingly, I found that CSS handles that via [transforms](https://www.w3schools.com/cssref/css3_pr_transform.asp), e.g. scale, translate and mirror images.
 
 ## Why?
 
 I've found that tables like this help my kid learn to read.
+They are similar to the [syllabary tables](https://files.tofugu.com/articles/japanese/2016-04-05-hiragana-chart/kidsmoji1.jpg) used to teach Japanese.
