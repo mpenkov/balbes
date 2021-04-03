@@ -4,12 +4,16 @@ import os
 import sys
 import urllib.parse
 import webbrowser
+import unicodedata
 
 import pyperclip
 
 duckduckgo = 'https://duckduckgo.com/?t=canonical&q=%s&iax=images&ia=images&iaf=type%%3Aclipart'
 
-images = {os.path.splitext(f)[0] for f in os.listdir('img')}
+images = {
+    unicodedata.normalize('NFC', os.path.splitext(f)[0])
+    for f in os.listdir('img')
+}
 
 with open(sys.argv[1]) as fin:
     for line in fin:
@@ -18,6 +22,7 @@ with open(sys.argv[1]) as fin:
         except ValueError:
             continue
 
+        word = unicodedata.normalize('NFC', word)
         if word not in images:
             pyperclip.copy(word)
             url = duckduckgo % urllib.parse.quote(word)
