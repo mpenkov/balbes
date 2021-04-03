@@ -3,6 +3,7 @@
 Inject words and images where possible.
 """
 
+import argparse
 import json
 import os
 import sys
@@ -91,7 +92,7 @@ def print_table(table):
 
 
 #
-# https://stackoverflow.com/questions/18746538/how-to-add-text-over-a-overlapping-div-tag#18746701 
+# https://stackoverflow.com/questions/18746538/how-to-add-text-over-a-overlapping-div-tag#18746701
 # https://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-a-div#7310398
 #
 print("""
@@ -138,11 +139,28 @@ def transpose(table):
     return newtable
 
 
-for table in tabulate(read_input()):
-    print_table(transpose(table))
-    print('\n      <hr><p style="page-break-before: always">')
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--rows', default=5, type=int)
+    parser.add_argument('--columns', default=5, type=int)
+    parser.add_argument('--order', choices=('row', 'column'), default='row')
+    args = parser.parse_args()
 
-print("""
-  </body>
-</html>
-""")
+    rows, columns = args.rows, args.columns
+    if args.order == 'column':
+        rows, columns = columns, rows
+
+    for table in tabulate(read_input(), rows=rows, columns=columns):
+        if args.order == 'column':
+            table = transpose(table)
+        print_table(table)
+        print('\n      <hr><p style="page-break-before: always">')
+
+    print("""
+      </body>
+    </html>
+    """)
+
+
+if __name__ == '__main__':
+    main()
