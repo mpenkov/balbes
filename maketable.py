@@ -101,7 +101,7 @@ print("""
   <head>
     <style>
       table td { border: 1px solid #999; }
-      td { width: 100px; height: 100px; }
+      td { width: 110px; height: 110px; }
       img {
         max-width: 100%; max-height: 100%;
         width: auto; height: auto; margin: auto;
