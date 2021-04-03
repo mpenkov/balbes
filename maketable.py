@@ -134,8 +134,15 @@ print("""
 def transpose(table):
     cols = len(table[0])
     newtable = []
+
+    def safeindex(row, i):
+        try:
+            return row[i]
+        except IndexError:
+            return '', ''
+
     for i in range(cols):
-        newtable.append([row[i] for row in table])
+        newtable.append([safeindex(row, i) for row in table])
     return newtable
 
 
